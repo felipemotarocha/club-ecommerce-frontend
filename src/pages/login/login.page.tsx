@@ -72,6 +72,7 @@ const LoginPage = () => {
             <CustomInput
               hasError={!!errors?.password}
               placeholder="Digite sua senha"
+              type="password"
               {...register('password', { required: true })}
             />
 
