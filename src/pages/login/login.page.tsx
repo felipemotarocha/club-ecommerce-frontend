@@ -2,6 +2,13 @@ import { BsGoogle } from 'react-icons/bs'
 import { FiLogIn } from 'react-icons/fi'
 import { useForm } from 'react-hook-form'
 import validator from 'validator'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import {
+  AuthError,
+  AuthErrorCodes,
+  signInWithEmailAndPassword,
+  signInWithPopup
+} from 'firebase/auth'
 
 // Components
 import CustomButton from '../../components/custom-button/custom-button.component'
@@ -17,12 +24,9 @@ import {
   LoginInputContainer,
   LoginSubtitle
 } from './login.styles'
-import {
-  AuthError,
-  AuthErrorCodes,
-  signInWithEmailAndPassword
-} from 'firebase/auth'
-import { auth } from '../../config/firebase.config'
+
+// Utilities
+import { auth, db, googleProvider } from '../../config/firebase.config'
 
 interface LoginForm {
   email: string
@@ -59,6 +63,36 @@ const LoginPage = () => {
     }
   }
 
+  const handleSignInWithGooglePress = async () => {
+    try {
+      const userCredentials = await signInWithPopup(auth, googleProvider)
+
+      const querySnapshot = await getDocs(
+        query(
+          collection(db, 'users'),
+          where('id', '==', userCredentials.user.uid)
+        )
+      )
+
+      const user = querySnapshot.docs[0]?.data()
+
+      if (!user) {
+        const firstName = userCredentials.user.displayName?.split(' ')[0]
+        const lastName = userCredentials.user.displayName?.split(' ')[1]
+
+        await addDoc(collection(db, 'users'), {
+          id: userCredentials.user.uid,
+          email: userCredentials.user.email,
+          firstName,
+          lastName,
+          provider: 'google'
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <Header />
@@ -67,7 +101,9 @@ const LoginPage = () => {
         <LoginContent>
           <LoginHeadline>Entre com a sua conta</LoginHeadline>
 
-          <CustomButton startIcon={<BsGoogle size={18} />}>
+          <CustomButton
+            startIcon={<BsGoogle size={18} />}
+            onClick={handleSignInWithGooglePress}>
             Entrar com o Google
           </CustomButton>
 
