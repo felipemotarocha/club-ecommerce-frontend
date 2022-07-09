@@ -8,7 +8,7 @@ import {
 import CartProduct from '../types/cart.types'
 import Product from '../types/product.types'
 
-interface ICartContext {
+export interface ICartContext {
   isVisible: boolean
   productsTotalPrice: number
   productsCount: number
@@ -34,7 +34,14 @@ export const CartContext = createContext<ICartContext>({
   clearProducts: () => {}
 })
 
-const CartContextProvider: FunctionComponent = ({ children }) => {
+interface CartContextProviderProps {
+  initialValues?: Partial<ICartContext>
+}
+
+const CartContextProvider: FunctionComponent<CartContextProviderProps> = ({
+  children,
+  initialValues
+}) => {
   const [isVisible, setIsVisible] = useState(false)
   const [products, setProducts] = useState<CartProduct[]>([])
 
@@ -43,7 +50,7 @@ const CartContextProvider: FunctionComponent = ({ children }) => {
       localStorage.getItem('cartProducts')!
     )
 
-    setProducts(productsFromLocalStorage)
+    setProducts(productsFromLocalStorage || [])
   }, [])
 
   useEffect(() => {
@@ -131,7 +138,8 @@ const CartContextProvider: FunctionComponent = ({ children }) => {
         removeProductFromCart,
         increaseProductQuantity,
         decreaseProductQuantity,
-        clearProducts
+        clearProducts,
+        ...initialValues
       }}>
       {children}
     </CartContext.Provider>

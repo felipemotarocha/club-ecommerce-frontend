@@ -2,7 +2,7 @@ import { createContext, FunctionComponent, useState } from 'react'
 
 import User from '../types/user.types'
 
-interface IUserContext {
+export interface IUserContext {
   currentUser: User | null
   isAuthenticated: boolean
   loginUser: (user: User) => void
@@ -16,7 +16,14 @@ export const UserContext = createContext<IUserContext>({
   logoutUser: () => {}
 })
 
-const UserContextProvider: FunctionComponent = ({ children }) => {
+interface UserContextProviderProps {
+  initialValues?: Partial<IUserContext>
+}
+
+const UserContextProvider: FunctionComponent<UserContextProviderProps> = ({
+  children,
+  initialValues
+}) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
 
   const isAuthenticated = currentUser !== null
@@ -31,7 +38,13 @@ const UserContextProvider: FunctionComponent = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ currentUser, isAuthenticated, loginUser, logoutUser }}>
+      value={{
+        currentUser,
+        isAuthenticated,
+        loginUser,
+        logoutUser,
+        ...initialValues
+      }}>
       {children}
     </UserContext.Provider>
   )
