@@ -9,7 +9,6 @@ import {
 import { addDoc, collection } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 
 // Components
 import CustomButton from '../../components/custom-button/custom-button.component'
@@ -28,6 +27,7 @@ import {
 
 // Utilities
 import { auth, db } from '../../config/firebase.config'
+import { useAppSelector } from '../../hooks/redux.hooks'
 
 interface SignUpForm {
   firstName: string
@@ -50,8 +50,8 @@ const SignUpPage = () => {
 
   const watchPassword = watch('password')
 
-  const { isAuthenticated } = useSelector(
-    (rootReducer: any) => rootReducer.userReducer
+  const { isAuthenticated } = useAppSelector(
+    (rootReducer) => rootReducer.userReducer
   )
 
   const navigate = useNavigate()
