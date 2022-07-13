@@ -5,7 +5,6 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
-import UserContextProvider from './contexts/user.context'
 import CategoryContextProvider from './contexts/category.context'
 import CartContextProvider from './contexts/cart.context'
 import store from './store/store'
@@ -13,13 +12,11 @@ import store from './store/store'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <UserContextProvider>
-        <CategoryContextProvider>
-          <CartContextProvider>
-            <App />
-          </CartContextProvider>
-        </CategoryContextProvider>
-      </UserContextProvider>
+      <CategoryContextProvider>
+        <CartContextProvider>
+          <App />
+        </CartContextProvider>
+      </CategoryContextProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
