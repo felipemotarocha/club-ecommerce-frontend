@@ -7,16 +7,13 @@ import reportWebVitals from './reportWebVitals'
 // @ts-ignore
 import { PersistGate } from 'redux-persist/integration/react'
 
-import CategoryContextProvider from './contexts/category.context'
 import { store, persistedStore } from './store/store'
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistedStore}>
-        <CategoryContextProvider>
-          <App />
-        </CategoryContextProvider>
+        <App />
       </PersistGate>
     </Provider>
   </React.StrictMode>,
