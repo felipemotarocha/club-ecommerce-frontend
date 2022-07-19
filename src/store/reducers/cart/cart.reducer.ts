@@ -43,6 +43,42 @@ const cartReducer = (state = initialState, action: any) => {
       }
     }
 
+    case CartActionTypes.removeProductFromCart:
+      return {
+        ...state,
+        products: state.products.filter(
+          (product) => product.id !== action.payload
+        )
+      }
+
+    case CartActionTypes.increaseCartProductQuantity:
+      return {
+        ...state,
+        products: state.products.map((product) =>
+          product.id === action.payload
+            ? { ...product, quantity: product.quantity + 1 }
+            : product
+        )
+      }
+
+    case CartActionTypes.decreaseCartProductQuantity:
+      return {
+        ...state,
+        products: state.products
+          .map((product) =>
+            product.id === action.payload
+              ? { ...product, quantity: product.quantity - 1 }
+              : product
+          )
+          .filter((product) => product.quantity > 0)
+      }
+
+    case CartActionTypes.clearCartProducts:
+      return {
+        ...state,
+        products: []
+      }
+
     default:
       return { ...state }
   }
