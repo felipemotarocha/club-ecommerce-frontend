@@ -5,7 +5,7 @@ import {
   decreaseCartProductQuantity,
   increaseCartProductQuantity,
   removeProductFromCart
-} from '../../store/reducers/cart/cart.actions'
+} from '../../store/toolkit/cart/cart.slice'
 
 // Utilities
 import CartProduct from '../../types/cart.types'
