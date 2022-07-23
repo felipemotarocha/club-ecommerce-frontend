@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 // Utilities
 import { auth } from '../../config/firebase.config'
-import { logoutUser } from '../../store/reducers/user/user.actions'
+import { logoutUser } from '../../store/toolkit/user/user.slice'
 import { toggleCart } from '../../store/reducers/cart/cart.actions'
 import { useAppSelector } from '../../hooks/redux.hooks'
 import { selectProductsCount } from '../../store/reducers/cart/cart.selectors'
