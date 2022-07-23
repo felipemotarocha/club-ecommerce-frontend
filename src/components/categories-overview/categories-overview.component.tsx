@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { Container } from './categories-overview.styles'
 
 // Utilities
-import { fetchCategories } from '../../store/reducers/category/category.actions'
+import { fetchCategories } from '../../store/toolkit/category/category.slice'
 import { useAppSelector } from '../../hooks/redux.hooks'
 
 // Components
