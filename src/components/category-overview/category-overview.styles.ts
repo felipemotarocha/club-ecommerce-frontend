@@ -18,4 +18,8 @@ export const ProductsContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    grid-row-gap: 20px;
+  }
 `
