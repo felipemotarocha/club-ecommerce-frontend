@@ -20,6 +20,10 @@ export const LoginContent = styled.div`
   flex-direction: column;
   align-items: center;
   width: 450px;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `
 
 export const LoginSubtitle = styled.p`
