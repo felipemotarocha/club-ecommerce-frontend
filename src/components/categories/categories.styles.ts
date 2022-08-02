@@ -37,4 +37,29 @@ export const CategoriesContent = styled.div`
   & div:nth-child(5) {
     grid-area: e;
   }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+
+    & div:nth-child(1) {
+      flex: 1;
+    }
+
+    & div:nth-child(2) {
+      flex: 1;
+    }
+
+    & div:nth-child(3) {
+      flex: 1;
+    }
+
+    & div:nth-child(4) {
+      flex: 1;
+    }
+
+    & div:nth-child(5) {
+      flex: 1;
+    }
+  }
 `
