@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import Colors from '../../theme/theme.colors'
 import CustomInput from './custom-input.component'
 
@@ -21,5 +22,17 @@ describe('Custom Input', () => {
     const input = getByPlaceholderText('Lorem Ipsum')
 
     expect(input).toHaveStyle({ border: 'none' })
+  })
+
+  it('should change value when user types', () => {
+    const { getByPlaceholderText, getByDisplayValue } = render(
+      <CustomInput placeholder="Lorem Ipsum" hasError={false} />
+    )
+
+    const input = getByPlaceholderText('Lorem Ipsum')
+
+    userEvent.type(input, 'Dolor Sit')
+
+    getByDisplayValue('Dolor Sit')
   })
 })
